@@ -1,0 +1,9 @@
+navigation:
+  - title: "Images"
+    url: /posts/
+  - title: "Audio/Video"
+    url: /categories/
+  - title: "CSVs"
+    url: /tags/
+  - title: "Maps"
+    url: /about/
