@@ -1,9 +1,9 @@
 navigation:
   - title: "Images"
-    url: /posts/
+    url: /index
   - title: "Audio/Video"
-    url: /categories/
+    url: /audio-video
   - title: "CSVs"
-    url: /tags/
+    url: /csvs
   - title: "Maps"
-    url: /about/
+    url: /maps
