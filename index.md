@@ -28,7 +28,7 @@ For batches of images, see [Zoomable Viewer for All Images in a Dataset](#zoomab
   * replace `[pid]` with your dataset's unique, persistent identifier in Borealis.
   * replace `[base_url]` with `https://borealisdata.ca` (Borealis) or `https://demo.borealisdata.ca` (demo Borealis).
 
-[Example on CodePen](https://codepen.io/eltiffster/pen/rNdadPK) &emsp; <img aria-hidden="true" src="/assets/images/play.svg" class="arrow" /><a data-bs-toggle="collapse" role="button" href="#thumb-gallery-code" aria-controls="thumb-gallery-code" aria-expanded="false">Expand/collapse JavaScript</a>
+[Example on CodePen](https://codepen.io/eltiffster/pen/rNdadPK) &emsp; <img aria-hidden="true" src="assets/images/play.svg" class="arrow" /><a data-bs-toggle="collapse" role="button" href="#thumb-gallery-code" aria-controls="thumb-gallery-code" aria-expanded="false">Expand/collapse JavaScript</a>
 
 <div class="collapse" id="thumb-gallery-code" markdown=1>
 ```javascript
@@ -96,7 +96,7 @@ $(document).ready(function() {
 <div class="modal-container">
 </div>
 
-[Example on CodePen](https://codepen.io/eltiffster/pen/MWVaEyZ) &emsp; <img aria-hidden="true" src="/assets/images/play.svg" class="arrow" /><a data-bs-toggle="collapse" role="button" href="#viewer-gallery-code" aria-controls="thumb-gallery-code" aria-expanded="false">Expand/collapse JavaScript</a>
+[Example on CodePen](https://codepen.io/eltiffster/pen/MWVaEyZ) &emsp; <img aria-hidden="true" src="assets/images/play.svg" class="arrow" /><a data-bs-toggle="collapse" role="button" href="#viewer-gallery-code" aria-controls="thumb-gallery-code" aria-expanded="false">Expand/collapse JavaScript</a>
 
 ## Zoomable Viewer for All Images in a Dataset
 
@@ -135,7 +135,7 @@ You can use the following Python script.
 
 Note that you will need to install [pyDataverse](https://pydataverse.readthedocs.io/en/latest/).
 
-<img aria-hidden="true" src="/assets/images/play.svg" class="arrow" /><a data-bs-toggle="collapse" role="button" href="#zoomhub-code" aria-controls="thumb-gallery-code" aria-expanded="false">Expand/collapse Python</a>
+<img aria-hidden="true" src="assets/images/play.svg" class="arrow" /><a data-bs-toggle="collapse" role="button" href="#zoomhub-code" aria-controls="thumb-gallery-code" aria-expanded="false">Expand/collapse Python</a>
 
 <div class="collapse" id="zoomhub-code" markdown=1>
 ```python
