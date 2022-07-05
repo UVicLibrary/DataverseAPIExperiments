@@ -201,7 +201,7 @@ We'll need to write some HTML to embed each viewer. For every viewer we will nee
   * replace `[idsAndLinks]` with the the result from the Python script in the previous step.
 
 
-[Example on CodePen](https://codepen.io/eltiffster/pen/MWVaEyZ) &emsp; <img aria-hidden="true" src="/assets/images/play.svg" class="arrow" /><a data-bs-toggle="collapse" role="button" href="#viewer-gallery-code" aria-controls="thumb-gallery-code" aria-expanded="false">Expand/collapse JavaScript</a>
+[Example on CodePen](https://codepen.io/eltiffster/pen/MWVaEyZ) &emsp; <img aria-hidden="true" src="assets/images/play.svg" class="arrow" /><a data-bs-toggle="collapse" role="button" href="#viewer-gallery-code" aria-controls="thumb-gallery-code" aria-expanded="false">Expand/collapse JavaScript</a>
 
 <div class="collapse" id="viewer-gallery-code" markdown=1>
 ```javascript
@@ -283,23 +283,23 @@ Here are the general steps for creating zoomable images and viewers that are sto
 3. Write some HTML/Javascript code that will include the viewer. See the example is below.
 
 <div id="openseadragon1" style="width: 650px; height: 400px; margin-bottom:1rem;"></div>
-<script src="/assets/openseadragon/openseadragon.min.js"></script>
+<script src="assets/openseadragon/openseadragon.min.js"></script>
 <script type="text/javascript">
     var viewer = OpenSeadragon({
         id: "openseadragon1",
-        prefixUrl: "/assets/openseadragon/images/",
-        tileSources: "/assets/images/aoraki.dzi"
+        prefixUrl: "assets/openseadragon/images/",
+        tileSources: "assets/images/aoraki.dzi"
     });
 </script>  
 
 ```html
 <div id="openseadragon1" style="width: 650px; height: 400px;"></div>
-<script src="/assets/openseadragon/openseadragon.min.js"></script>
+<script src="assets/openseadragon/openseadragon.min.js"></script>
 <script type="text/javascript">
     var viewer = OpenSeadragon({
         id: "openseadragon1",
-        prefixUrl: "/assets/openseadragon/images/",
-        tileSources: "/assets/images/aoraki.dzi"
+        prefixUrl: "assets/openseadragon/images/",
+        tileSources: "assets/images/aoraki.dzi"
     });
 </script>
 ```
