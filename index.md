@@ -96,7 +96,80 @@ $(document).ready(function() {
 <div class="modal-container">
 </div>
 
-[Example on CodePen](https://codepen.io/eltiffster/pen/MWVaEyZ) &emsp; <img aria-hidden="true" src="assets/images/play.svg" class="arrow" /><a data-bs-toggle="collapse" role="button" href="#viewer-gallery-code" aria-controls="thumb-gallery-code" aria-expanded="false">Expand/collapse JavaScript</a>
+[Example on CodePen](https://codepen.io/eltiffster/pen/MWVaEyZ) &emsp; <img aria-hidden="true" src="assets/images/play.svg" class="arrow" /><a data-bs-toggle="collapse" role="button" href="#viewer-gallery-code-0" aria-controls="thumb-gallery-code" aria-expanded="false">Expand/collapse JavaScript</a>
+
+<div class="collapse" id="viewer-gallery-code-0" markdown=1>
+```javascript
+$(document).ready(function() {
+
+    var pid = "[pid]"; // the persistent ID for your dataset
+    var baseUrl = "[base_url]"; // The domain of the dataverse site
+    var url = baseUrl + "/api/datasets/:persistentId/?persistentId=" + pid // The url to make a request to
+    var idsAndLinks = [idsAndLinks] // Generated via a python script
+
+    $.ajax({
+        url: url,
+        type: "GET",
+        success: function(data) { parseImageData(data); }
+    });
+
+    function parseImageData(response) {
+        let files = response['data']['latestVersion']['files'];
+        console.log(files);
+        let arr = [];
+        // Filter that returns only image files
+        for(file in files) { arr.push(files[file]) }
+        let images = arr.filter(file => file.dataFile.contentType.includes("image"));
+        // console.log(images);
+        // generate a link and thumbnail to each file
+        $('#thumb-gallery').append(images.map(im => viewerThumbTemplate(im)));
+    }
+
+    function viewerThumbTemplate(image) {
+        let fileLink = baseUrl + "/api/access/datafile/" + image.dataFile.id;
+        let pageLink = baseUrl + "/file.xhtml?fileId=" + image.dataFile.id;
+        let title = image.label;
+        return [
+            '<a class="no-style" data-bs-toggle="modal" data-bs-target="#modal-' + image.dataFile.id + '">',
+                '<figure>',
+                    '<img class="thumb" src="' + fileLink + '" alt="' + image.description + '"/>',
+                    '<figcaption>' + title.split(".")[0].replace('_', ' ') + '</figcaption>',
+                '</figure>',
+            '</a>'
+        ].join('\n');
+    }
+
+    function viewerModalTemplate(idAndLink) {
+        return [
+            '<div class="modal fade viewer" id="modal-' + idAndLink.fileId + '" tabindex="-1" aria-labelledby="exampleModalLabel" data-backdrop="false" aria-hidden="true">',
+                '<div class="modal-dialog">',
+                    '<div class="modal-header">',
+                        '<h5>' + idAndLink.title + '</h5>',
+                        '<a class="modal-link" href="' + (baseUrl + "/api/access/datafile/" + idAndLink.fileId) + '">Download image</a>',
+                        '<a class="modal-link" href="' + (baseUrl + "/dataset.xhtml?persistentId=" + pid) + '" target="_blank">See dataset</a>',
+                        '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>',
+                    '</div>',
+                '</div>',
+            '</div>'
+        ].join('\n');
+    }
+
+    function injectViewer(idAndLink) {
+        let modal = $('#modal-' + idAndLink.fileId);
+        let viewer = $('[data-modal-id="' + modal.attr('id') + '"]');
+        modal.find('.modal-dialog').append(viewer);
+    }
+
+    for (index in idsAndLinks) {
+        $('.modal-container').append(viewerModalTemplate(idsAndLinks[index]));
+        injectViewer(idsAndLinks[index]);
+    }
+
+});
+```
+</div>
+
+
 
 ## Zoomable Viewer for All Images in a Dataset
 

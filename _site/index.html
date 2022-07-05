@@ -172,7 +172,77 @@
 <div class="modal-container">
 </div>
 
-<p><a href="https://codepen.io/eltiffster/pen/MWVaEyZ">Example on CodePen</a>   <img aria-hidden="true" src="assets/images/play.svg" class="arrow" /><a data-bs-toggle="collapse" role="button" href="#viewer-gallery-code" aria-controls="thumb-gallery-code" aria-expanded="false">Expand/collapse JavaScript</a></p>
+<p><a href="https://codepen.io/eltiffster/pen/MWVaEyZ">Example on CodePen</a>   <img aria-hidden="true" src="assets/images/play.svg" class="arrow" /><a data-bs-toggle="collapse" role="button" href="#viewer-gallery-code-0" aria-controls="thumb-gallery-code" aria-expanded="false">Expand/collapse JavaScript</a></p>
+
+<div class="collapse" id="viewer-gallery-code-0">
+  <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="kd">var</span> <span class="nx">pid</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">[pid]</span><span class="dl">"</span><span class="p">;</span> <span class="c1">// the persistent ID for your dataset</span>
+    <span class="kd">var</span> <span class="nx">baseUrl</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">[base_url]</span><span class="dl">"</span><span class="p">;</span> <span class="c1">// The domain of the dataverse site</span>
+    <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">baseUrl</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">/api/datasets/:persistentId/?persistentId=</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">pid</span> <span class="c1">// The url to make a request to</span>
+    <span class="kd">var</span> <span class="nx">idsAndLinks</span> <span class="o">=</span> <span class="p">[</span><span class="nx">idsAndLinks</span><span class="p">]</span> <span class="c1">// Generated via a python script</span>
+
+    <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+        <span class="na">url</span><span class="p">:</span> <span class="nx">url</span><span class="p">,</span>
+        <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">GET</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span> <span class="nx">parseImageData</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span> <span class="p">}</span>
+    <span class="p">});</span>
+
+    <span class="kd">function</span> <span class="nx">parseImageData</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">files</span> <span class="o">=</span> <span class="nx">response</span><span class="p">[</span><span class="dl">'</span><span class="s1">data</span><span class="dl">'</span><span class="p">][</span><span class="dl">'</span><span class="s1">latestVersion</span><span class="dl">'</span><span class="p">][</span><span class="dl">'</span><span class="s1">files</span><span class="dl">'</span><span class="p">];</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">files</span><span class="p">);</span>
+        <span class="kd">let</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[];</span>
+        <span class="c1">// Filter that returns only image files</span>
+        <span class="k">for</span><span class="p">(</span><span class="nx">file</span> <span class="k">in</span> <span class="nx">files</span><span class="p">)</span> <span class="p">{</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">files</span><span class="p">[</span><span class="nx">file</span><span class="p">])</span> <span class="p">}</span>
+        <span class="kd">let</span> <span class="nx">images</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">file</span> <span class="o">=&gt;</span> <span class="nx">file</span><span class="p">.</span><span class="nx">dataFile</span><span class="p">.</span><span class="nx">contentType</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="dl">"</span><span class="s2">image</span><span class="dl">"</span><span class="p">));</span>
+        <span class="c1">// console.log(images);</span>
+        <span class="c1">// generate a link and thumbnail to each file</span>
+        <span class="nx">$</span><span class="p">(</span><span class="dl">'</span><span class="s1">#thumb-gallery</span><span class="dl">'</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">images</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">im</span> <span class="o">=&gt;</span> <span class="nx">viewerThumbTemplate</span><span class="p">(</span><span class="nx">im</span><span class="p">)));</span>
+    <span class="p">}</span>
+
+    <span class="kd">function</span> <span class="nx">viewerThumbTemplate</span><span class="p">(</span><span class="nx">image</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">fileLink</span> <span class="o">=</span> <span class="nx">baseUrl</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">/api/access/datafile/</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">image</span><span class="p">.</span><span class="nx">dataFile</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">pageLink</span> <span class="o">=</span> <span class="nx">baseUrl</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">/file.xhtml?fileId=</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">image</span><span class="p">.</span><span class="nx">dataFile</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">title</span> <span class="o">=</span> <span class="nx">image</span><span class="p">.</span><span class="nx">label</span><span class="p">;</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="dl">'</span><span class="s1">&lt;a class="no-style" data-bs-toggle="modal" data-bs-target="#modal-</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">image</span><span class="p">.</span><span class="nx">dataFile</span><span class="p">.</span><span class="nx">id</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">"&gt;</span><span class="dl">'</span><span class="p">,</span>
+                <span class="dl">'</span><span class="s1">&lt;figure&gt;</span><span class="dl">'</span><span class="p">,</span>
+                    <span class="dl">'</span><span class="s1">&lt;img class="thumb" src="</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">fileLink</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">" alt="</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">image</span><span class="p">.</span><span class="nx">description</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">"/&gt;</span><span class="dl">'</span><span class="p">,</span>
+                    <span class="dl">'</span><span class="s1">&lt;figcaption&gt;</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">title</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="dl">"</span><span class="s2">.</span><span class="dl">"</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">replace</span><span class="p">(</span><span class="dl">'</span><span class="s1">_</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1"> </span><span class="dl">'</span><span class="p">)</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">&lt;/figcaption&gt;</span><span class="dl">'</span><span class="p">,</span>
+                <span class="dl">'</span><span class="s1">&lt;/figure&gt;</span><span class="dl">'</span><span class="p">,</span>
+            <span class="dl">'</span><span class="s1">&lt;/a&gt;</span><span class="dl">'</span>
+        <span class="p">].</span><span class="nx">join</span><span class="p">(</span><span class="dl">'</span><span class="se">\n</span><span class="dl">'</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kd">function</span> <span class="nx">viewerModalTemplate</span><span class="p">(</span><span class="nx">idAndLink</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="dl">'</span><span class="s1">&lt;div class="modal fade viewer" id="modal-</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">idAndLink</span><span class="p">.</span><span class="nx">fileId</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">" tabindex="-1" aria-labelledby="exampleModalLabel" data-backdrop="false" aria-hidden="true"&gt;</span><span class="dl">'</span><span class="p">,</span>
+                <span class="dl">'</span><span class="s1">&lt;div class="modal-dialog"&gt;</span><span class="dl">'</span><span class="p">,</span>
+                    <span class="dl">'</span><span class="s1">&lt;div class="modal-header"&gt;</span><span class="dl">'</span><span class="p">,</span>
+                        <span class="dl">'</span><span class="s1">&lt;h5&gt;</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">idAndLink</span><span class="p">.</span><span class="nx">title</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">&lt;/h5&gt;</span><span class="dl">'</span><span class="p">,</span>
+                        <span class="dl">'</span><span class="s1">&lt;a class="modal-link" href="</span><span class="dl">'</span> <span class="o">+</span> <span class="p">(</span><span class="nx">baseUrl</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">/api/access/datafile/</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">idAndLink</span><span class="p">.</span><span class="nx">fileId</span><span class="p">)</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">"&gt;Download image&lt;/a&gt;</span><span class="dl">'</span><span class="p">,</span>
+                        <span class="dl">'</span><span class="s1">&lt;a class="modal-link" href="</span><span class="dl">'</span> <span class="o">+</span> <span class="p">(</span><span class="nx">baseUrl</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">/dataset.xhtml?persistentId=</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">pid</span><span class="p">)</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">" target="_blank"&gt;See dataset&lt;/a&gt;</span><span class="dl">'</span><span class="p">,</span>
+                        <span class="dl">'</span><span class="s1">&lt;button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"&gt;&lt;/button&gt;</span><span class="dl">'</span><span class="p">,</span>
+                    <span class="dl">'</span><span class="s1">&lt;/div&gt;</span><span class="dl">'</span><span class="p">,</span>
+                <span class="dl">'</span><span class="s1">&lt;/div&gt;</span><span class="dl">'</span><span class="p">,</span>
+            <span class="dl">'</span><span class="s1">&lt;/div&gt;</span><span class="dl">'</span>
+        <span class="p">].</span><span class="nx">join</span><span class="p">(</span><span class="dl">'</span><span class="se">\n</span><span class="dl">'</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kd">function</span> <span class="nx">injectViewer</span><span class="p">(</span><span class="nx">idAndLink</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">modal</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="dl">'</span><span class="s1">#modal-</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">idAndLink</span><span class="p">.</span><span class="nx">fileId</span><span class="p">);</span>
+        <span class="kd">let</span> <span class="nx">viewer</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="dl">'</span><span class="s1">[data-modal-id="</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">modal</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="dl">'</span><span class="s1">id</span><span class="dl">'</span><span class="p">)</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">"]</span><span class="dl">'</span><span class="p">);</span>
+        <span class="nx">modal</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="dl">'</span><span class="s1">.modal-dialog</span><span class="dl">'</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">viewer</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="nx">index</span> <span class="k">in</span> <span class="nx">idsAndLinks</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">$</span><span class="p">(</span><span class="dl">'</span><span class="s1">.modal-container</span><span class="dl">'</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">viewerModalTemplate</span><span class="p">(</span><span class="nx">idsAndLinks</span><span class="p">[</span><span class="nx">index</span><span class="p">]));</span>
+        <span class="nx">injectViewer</span><span class="p">(</span><span class="nx">idsAndLinks</span><span class="p">[</span><span class="nx">index</span><span class="p">]);</span>
+    <span class="p">}</span>
+
+<span class="p">});</span>
+</code></pre></div>  </div>
+</div>
 
 <h2 id="zoomable-viewer-for-all-images-in-a-dataset">Zoomable Viewer for All Images in a Dataset</h2>
 
