@@ -96,6 +96,8 @@ $(document).ready(function() {
 <div class="modal-container">
 </div>
 
+[Example on CodePen](https://codepen.io/eltiffster/pen/MWVaEyZ) &emsp; <img aria-hidden="true" src="/assets/images/play.svg" class="arrow" /><a data-bs-toggle="collapse" role="button" href="#viewer-gallery-code" aria-controls="thumb-gallery-code" aria-expanded="false">Expand/collapse JavaScript</a>
+
 ## Zoomable Viewer for All Images in a Dataset
 
 We have two options:
@@ -107,8 +109,6 @@ We have two options:
 | Zoomhub API | - Don't need to generate or host images yourself, or re-download content from Borealis/Dataverse | - Requires a stable internet connection to Zoomhub<br>- Need to wait for Zoomhub to process your images<br>- No control over whatever happens to Zoomhub (i.e. if Zoomhub disappears, so do your zoomable images) |
 | Local Images | - Don't need to worry about Zoomhub going down<br>- Don't need a stable connection to Zoomhub | - Takes some work and time to generate images |  
 
-We'll go into Option 1 in detail.
-
 ### Option 1: Zoomhub
 
 #### Upload to Zoomhub
@@ -116,7 +116,7 @@ We'll go into Option 1 in detail.
 Using Python (or another programming language of your choice), you can 
 1. collect/loop through all images in your dataset
 2. push their URLs to Zoomhub
-3. collect the resulting URLs to use on your site. The result should be an array of json objects in this format:
+3. collect the resulting URLs to use on your site. The result should be a list of dictionaries or JSON objects in this format:
 ```
 [
     { 'fileId': '15173', 'title': 'Aconcagua', 'embedUrl': 'https://zoomhub.net/zayJq' },
@@ -183,21 +183,25 @@ We'll need to write some HTML to embed each viewer. For every viewer we will nee
 ```
 
 1. If JQuery isn't already included in your site, copy/paste the following in your `<head>` tag:
-  `<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>`
+  ```
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  ```
 2. You'll also need to include Bootstrap 5 in `<head>`:
 ```
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 ```
-3. Insert an `<div>` in your HTML where you want the images to render:
+3. Insert a `<div>` in your HTML where you want the images to render:
   `<div id="thumb-gallery"></div>`
-4. Copy/paste the following Javascript and
+4. Insert a container for the generated popups:
+  `<div class="modal-container"></div>`
+5. Copy/paste the following Javascript and
   * replace `[pid]` with your dataset's unique, persistent identifier in Borealis.
   * replace `[base_url]` with `https://borealisdata.ca` (Borealis) or `https://demo.borealisdata.ca` (demo Borealis).
   * replace `[idsAndLinks]` with the the result from the Python script in the previous step.
 
 
-[Example on CodePen]() &emsp; <img aria-hidden="true" src="/assets/images/play.svg" class="arrow" /><a data-bs-toggle="collapse" role="button" href="#viewer-gallery-code" aria-controls="thumb-gallery-code" aria-expanded="false">Expand/collapse JavaScript</a>
+[Example on CodePen](https://codepen.io/eltiffster/pen/MWVaEyZ) &emsp; <img aria-hidden="true" src="/assets/images/play.svg" class="arrow" /><a data-bs-toggle="collapse" role="button" href="#viewer-gallery-code" aria-controls="thumb-gallery-code" aria-expanded="false">Expand/collapse JavaScript</a>
 
 <div class="collapse" id="viewer-gallery-code" markdown=1>
 ```javascript
@@ -289,7 +293,7 @@ Here are the general steps for creating zoomable images and viewers that are sto
 </script>  
 
 ```html
-<div id="openseadragon1" style="width: 800px; height: 600px;"></div>
+<div id="openseadragon1" style="width: 650px; height: 400px;"></div>
 <script src="/assets/openseadragon/openseadragon.min.js"></script>
 <script type="text/javascript">
     var viewer = OpenSeadragon({

@@ -172,6 +172,8 @@
 <div class="modal-container">
 </div>
 
+<p><a href="https://codepen.io/eltiffster/pen/MWVaEyZ">Example on CodePen</a>   <img aria-hidden="true" src="/assets/images/play.svg" class="arrow" /><a data-bs-toggle="collapse" role="button" href="#viewer-gallery-code" aria-controls="thumb-gallery-code" aria-expanded="false">Expand/collapse JavaScript</a></p>
+
 <h2 id="zoomable-viewer-for-all-images-in-a-dataset">Zoomable Viewer for All Images in a Dataset</h2>
 
 <p>We have two options:</p>
@@ -202,8 +204,6 @@
   </tbody>
 </table>
 
-<p>We’ll go into Option 1 in detail.</p>
-
 <h3 id="option-1-zoomhub">Option 1: Zoomhub</h3>
 
 <h4 id="upload-to-zoomhub">Upload to Zoomhub</h4>
@@ -212,7 +212,7 @@
 <ol>
   <li>collect/loop through all images in your dataset</li>
   <li>push their URLs to Zoomhub</li>
-  <li>collect the resulting URLs to use on your site. The result should be an array of json objects in this format:
+  <li>collect the resulting URLs to use on your site. The result should be a list of dictionaries or JSON objects in this format:
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[
  { 'fileId': '15173', 'title': 'Aconcagua', 'embedUrl': 'https://zoomhub.net/zayJq' },
  { 'fileId': '15167','title': 'Aoraki', 'embedUrl': 'https://zoomhub.net/p5NJO' },
@@ -286,14 +286,18 @@
 
 <ol>
   <li>If JQuery isn’t already included in your site, copy/paste the following in your <code class="language-plaintext highlighter-rouge">&lt;head&gt;</code> tag:
-  <code class="language-plaintext highlighter-rouge">&lt;script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"&gt;&lt;/script&gt;</code></li>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  &lt;script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"&gt;&lt;/script&gt;
+</code></pre></div>    </div>
+  </li>
   <li>You’ll also need to include Bootstrap 5 in <code class="language-plaintext highlighter-rouge">&lt;head&gt;</code>:
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"&gt;
  &lt;script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"&gt;&lt;/script&gt;
 </code></pre></div>    </div>
   </li>
-  <li>Insert an <code class="language-plaintext highlighter-rouge">&lt;div&gt;</code> in your HTML where you want the images to render:
+  <li>Insert a <code class="language-plaintext highlighter-rouge">&lt;div&gt;</code> in your HTML where you want the images to render:
   <code class="language-plaintext highlighter-rouge">&lt;div id="thumb-gallery"&gt;&lt;/div&gt;</code></li>
+  <li>Insert a container for the generated popups:
+  <code class="language-plaintext highlighter-rouge">&lt;div class="modal-container"&gt;&lt;/div&gt;</code></li>
   <li>Copy/paste the following Javascript and
     <ul>
       <li>replace <code class="language-plaintext highlighter-rouge">[pid]</code> with your dataset’s unique, persistent identifier in Borealis.</li>
@@ -303,7 +307,7 @@
   </li>
 </ol>
 
-<p><a href="">Example on CodePen</a>   <img aria-hidden="true" src="/assets/images/play.svg" class="arrow" /><a data-bs-toggle="collapse" role="button" href="#viewer-gallery-code" aria-controls="thumb-gallery-code" aria-expanded="false">Expand/collapse JavaScript</a></p>
+<p><a href="https://codepen.io/eltiffster/pen/MWVaEyZ">Example on CodePen</a>   <img aria-hidden="true" src="/assets/images/play.svg" class="arrow" /><a data-bs-toggle="collapse" role="button" href="#viewer-gallery-code" aria-controls="thumb-gallery-code" aria-expanded="false">Expand/collapse JavaScript</a></p>
 
 <div class="collapse" id="viewer-gallery-code">
   <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
@@ -396,7 +400,7 @@
     });
 </script>
 
-<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"openseadragon1"</span> <span class="na">style=</span><span class="s">"width: 800px; height: 600px;"</span><span class="nt">&gt;&lt;/div&gt;</span>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"openseadragon1"</span> <span class="na">style=</span><span class="s">"width: 650px; height: 400px;"</span><span class="nt">&gt;&lt;/div&gt;</span>
 <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"/assets/openseadragon/openseadragon.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
 <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
     <span class="kd">var</span> <span class="nx">viewer</span> <span class="o">=</span> <span class="nx">OpenSeadragon</span><span class="p">({</span>
