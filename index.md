@@ -372,7 +372,7 @@ Here are the general steps for creating zoomable images and viewers that are sto
     var viewer = OpenSeadragon({
         id: "openseadragon1",
         prefixUrl: "assets/openseadragon/images/",
-        tileSources: "assets/images/aoraki.dzi"
+        tileSources: "assets/images/Aoraki.dzi"
     });
 </script>
 ```
